@@ -1,0 +1,41 @@
+{
+    "96cdd3c9c458d0e19ed6a8e8": {
+        "word": "asesoráis",
+        "hint": "_ _ _ _ _ r _ _ _",
+        "leftAttempts": "5",
+        "id": "96cdd3c9c458d0e19ed6a8e8"
+    },
+    "6f7da88442ed7529b6e59a1e": {
+        "word": "jarrarlas",
+        "hint": "j _ _ _ _ _ _ _ _",
+        "leftAttempts": "5",
+        "id": "6f7da88442ed7529b6e59a1e"
+    },
+    "6054c3045a4b762f9ce007f4": {
+        "word": "desenoja",
+        "hint": "d _ _ _ _ _ _ _",
+        "leftAttempts": "5",
+        "id": "6054c3045a4b762f9ce007f4"
+    },
+    "62ccb5b5a521abc068f184d4": {
+        "word": "ascuas",
+        "hint": "_ s _ _ _ s",
+        "leftAttempts": "5",
+        "id": "62ccb5b5a521abc068f184d4"
+    },
+    "d46de5b5f6d8b448673a8433": {
+        "word": "parodió",
+        "hint": "_ _ r _ _ _ _",
+        "leftAttempts": "5",
+        "id": "d46de5b5f6d8b448673a8433"
+    },
+    "eec47c6c8d576d8bddb3a1b4": {
+        "word": "desatibé",
+        "hint": "d e _ a _ _ _ _",
+        "leftAttempts": 0,
+        "id": "eec47c6c8d576d8bddb3a1b4",
+        "isInvalid": true,
+        "isDone": false,
+        "isGameOver": true
+    }
+}
