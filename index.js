@@ -1,56 +1,53 @@
 const express = require('express')
+const bodyParser = require('body-parser');
 const app = express()
-const Dictionary = require('./src/dictionary.js')
-const WordReader = require('./src/word-reader.js')
-const ConvertJson = require('./src/convert-object-json.js')
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 const Game = require('./src/game.js')
-const MapDataString = require("./assets/saved-games.json");
-let MapDataGames =new Map();
-
-Dictionary.getWord().then(word => console.log('word: ', word))
-
-MapDataGames = ConvertJson.objectToStrMap(MapDataString);
-
-app.get('/gameInstance', (req, res) => {
-
-    let initGame ={
-        id: 2,
-        hint: '_ _ _ _ A',
-        leftAttempts: 5,
-        image: `
- |_____________
- |            | 
- |           ( )
- |            |
- |           /|\\
- |          / | \\
- |            |
- |           / \\
- |          /   \\
- |         /     \\
- |
-`
-    };
-    
-    MapDataGames.set(initGame.id, initGame);
-    WriteObjectToJson({path:'./assets/saved-games.json'}, ConvertJson.strMapToObject(MapDataGames));
-    res.send(initGame);    
-})
 
 app.get('/game', (req, res) => {
-    
-    var dato =Game.create()
+    //console.log(req.query)    
+    Game.create(req.query)
         .then(game => {
-            MapDataGames.set(game.id, game);    
-            WordReader.WriteObjectToJson({path:'./assets/saved-games.json'}, ConvertJson.strMapToObject(MapDataGames));
             res.send(game)            
         })
         .catch(err => {
+            console.log(err)
             res.status(500).send({
                 error: 'Game could not be created'
             })
-        });    
-    return dato;
+        })
+})
+
+app.post('/game/:gameId/attempt', (req, res) => {    
+    const gameId = req.params.gameId
+    const attempt = req.body
+    console.log(gameId);    
+    Game.attempt(gameId, attempt)
+      .then(result => {
+        console.log(`don ${result.isDone} is ${result.isGameOver} valid ${result.isInvalid}`);
+        if (result.isDone) {
+          res.status(200).send({
+            message: 'You won!'
+          })
+          return;
+        }
+        if (result.isGameOver) {
+          res.status(500).send({
+            error: 'You lose XD'
+          })
+          return;
+        }
+        if (result.isInvalid) {
+          res.status(400).send(result)
+          return;
+        }
+        res.status(200).send(result)
+      })
+      .catch(err => {
+        console.log(err)
+      })
 })
 
 app.listen(3000, () => {
